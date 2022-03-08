@@ -1,6 +1,9 @@
 package leander
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
 func TestValid(t *testing.T) {
 
@@ -31,19 +34,25 @@ func TestValid(t *testing.T) {
 func TestAverage(t *testing.T) {
 
 	cases := map[string]struct {
-		in       string
+		in string
+
+		// expected is the expected result * 1000
 		expected float64
 	}{
 		"empty":   {"", 0},
 		"invalid": {"-123", 0},
-		"10":      {"10-abc-10-abc-10-abc", 10},
+		"10":      {"10-abc-10-abc-10-abc", 10 * 1000},
+		"float":   {"0-abc-0-abc-1-abc", 0.333 * 1000},
 	}
 
 	for name, test := range cases {
 		test := test
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
-			if got := Average(test.in); got != test.expected {
+			got := Average(test.in)
+
+			// tests for 3 decimal places
+			if math.Round(got*1000) != test.expected {
 				t.Errorf("got: %v, expected: %v", got, test.expected)
 			}
 		})

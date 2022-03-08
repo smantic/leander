@@ -54,9 +54,8 @@ func Valid(in string) bool {
 // Average takes a string following our custom convents and outputs the
 // average of all the numbers contained in the string.
 //
-//
 // estimated difficulty: low
-// actual time: 10 mins
+// actual time: 15 mins
 func Average(in string) float64 {
 
 	if !Valid(in) {
