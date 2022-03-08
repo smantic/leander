@@ -26,3 +26,25 @@ func TestValid(t *testing.T) {
 		})
 	}
 }
+
+func TestAverage(t *testing.T) {
+
+	cases := map[string]struct {
+		in       string
+		expected int
+	}{
+		"empty":   {"", 0},
+		"invalid": {"-123", 0},
+		"10":      {"abc-10-abc-10-abc-10", 10},
+	}
+
+	for name, test := range cases {
+		test := test
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+			if got := Average(test.in); got != test.expected {
+				t.Errorf("got: %v, expected: %v", got, test.expected)
+			}
+		})
+	}
+}
