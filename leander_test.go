@@ -8,9 +8,11 @@ func TestValid(t *testing.T) {
 		in       string
 		expected bool
 	}{
+		"empty":         {"", false},
 		"no dashes":     {"123abc", false},
 		"trailing dash": {"123-abc-", false},
 		"leading dash":  {"-123-abc", false},
+		"special chars": {"123-!abc", false},
 		"ok":            {"123-abc", true},
 	}
 
