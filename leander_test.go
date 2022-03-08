@@ -13,6 +13,7 @@ func TestValid(t *testing.T) {
 		"trailing dash": {"123-abc-", false},
 		"leading dash":  {"-123-abc", false},
 		"special chars": {"123-!abc", false},
+		"missing-chars": {"123-", false},
 		"ok":            {"123-abc", true},
 	}
 
@@ -31,11 +32,11 @@ func TestAverage(t *testing.T) {
 
 	cases := map[string]struct {
 		in       string
-		expected int
+		expected float64
 	}{
 		"empty":   {"", 0},
 		"invalid": {"-123", 0},
-		"10":      {"abc-10-abc-10-abc-10", 10},
+		"10":      {"10-abc-10-abc-10-abc", 10},
 	}
 
 	for name, test := range cases {

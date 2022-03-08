@@ -8,8 +8,7 @@ import (
 	"unicode"
 )
 
-// Valid takes a string input and tests that it folllows the custom convention
-// we are assuming false in edgecases such as empty string
+// Valid takes a string input and tests that it folllows the custom convention.
 //
 // estimated difficulty: low
 // actual time: ~10 mins
@@ -38,6 +37,9 @@ func Valid(in string) bool {
 
 		// odd items should be valid ascii
 		if !isEven {
+			if len(s) == 0 {
+				return false
+			}
 			for _, c := range s {
 				if !unicode.IsLetter(c) {
 					return false
@@ -47,4 +49,42 @@ func Valid(in string) bool {
 	}
 
 	return true
+}
+
+// Average takes a string following our custom convents and outputs the
+// average of all the numbers contained in the string.
+//
+//
+// estimated difficulty: low
+// actual time: 10 mins
+func Average(in string) float64 {
+
+	if !Valid(in) {
+		return 0
+	}
+
+	var (
+		total = 0
+		freq  = 0
+		split = strings.Split(in, "-")
+	)
+
+	for i, s := range split {
+
+		// even items should be integers.
+		isEven := (i % 2) == 0
+
+		if isEven {
+			num, err := strconv.Atoi(s)
+			if err != nil {
+				// should be non-reachable
+				return 0
+			}
+
+			total = total + num
+			freq = freq + 1
+		}
+	}
+
+	return float64(total) / float64(freq)
 }
