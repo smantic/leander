@@ -51,7 +51,7 @@ func Valid(in string) bool {
 	return true
 }
 
-// Average takes a string following our custom convents and outputs the
+// Average takes a string following our custom conventions and outputs the
 // average of all the numbers contained in the string.
 //
 // estimated difficulty: low
@@ -86,4 +86,12 @@ func Average(in string) float64 {
 	}
 
 	return float64(total) / float64(freq)
+}
+
+// WholeStory takes a string following our custom conventions and outputs all of the text parts combined.
+//
+// expected difficulty: low
+// actual time:
+func WholeStory(in string) string {
+
 }

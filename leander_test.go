@@ -58,3 +58,28 @@ func TestAverage(t *testing.T) {
 		})
 	}
 }
+
+func TestWholeStory() {
+
+	cases := map[string]struct {
+		in       string
+		expected string
+	}{
+		"empty":   {"", ""},
+		"invalid": {"-123", ""},
+		"ok":      {"10-abc-10-abc-10-abc", "abc abc abc"},
+	}
+
+	for name, test := range cases {
+		test := test
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+			got := WholeStory(test.in)
+
+			if got != test.expected {
+				t.Errorf("got: %s, expected: %s", got, test.expected)
+			}
+		})
+	}
+
+}
