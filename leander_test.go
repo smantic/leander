@@ -105,6 +105,17 @@ func TestStoryStats(t *testing.T) {
 				ShortestWord:      "abc",
 			},
 		},
+		"float average": {
+			"10-lorem-10-ipsum-10-joe",
+			Stats{
+				AverageWordLength: 4.333333333333333,
+				LongestWord:       "lorem",
+				ShortestWord:      "joe",
+
+				// any words 5 or 4 in length
+				AverageWords: []string{"lorem", "ipsum"},
+			},
+		},
 	}
 
 	for name, test := range cases {
