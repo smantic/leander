@@ -130,3 +130,16 @@ func TestStoryStats(t *testing.T) {
 		})
 	}
 }
+
+func TestGenerate(t *testing.T) {
+
+	invalid := Generate(false)
+	if Valid(invalid) {
+		t.Errorf("expected invalid string: %s", invalid)
+	}
+
+	valid := Generate(true)
+	if !Valid(valid) {
+		t.Errorf("expected valid string: %s", valid)
+	}
+}

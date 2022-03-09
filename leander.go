@@ -4,8 +4,10 @@ package leander
 
 import (
 	"math"
+	"math/rand"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -124,7 +126,7 @@ type Stats struct {
 // StoryStats gives us some descriptive statistics of our input string following our string convention.
 //
 // expected difficulty: med
-// actual time:
+// actual time: 30 mins
 func StoryStats(in string) Stats {
 
 	if !Valid(in) {
@@ -172,4 +174,51 @@ func StoryStats(in string) Stats {
 	}
 
 	return ret
+}
+
+// Generate will generate a random valid or invalid string
+//
+// expected difficulty: med
+func Generate(valid bool) string {
+
+	chars := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	rand.Seed(time.Now().Unix())
+
+	numParts := rand.Intn(100)
+
+	// if its valid string make sure the parts are even
+	if valid && (numParts%2 != 0) {
+		numParts = numParts + 1
+	}
+
+	var result strings.Builder
+
+	for i := 0; i < numParts; i++ {
+
+		isEven := (i % 2) == 0
+		if isEven && valid {
+			randInt := rand.Int()
+			result.WriteString(strconv.Itoa(randInt))
+
+			if i+1 < numParts {
+				result.WriteRune('-')
+			}
+
+			continue
+		}
+
+		rlen := rand.Intn(100)
+		builder := strings.Builder{}
+		for j := 0; j < rlen; j++ {
+			ridx := rand.Int() % len(chars)
+			builder.WriteRune(chars[ridx])
+		}
+
+		result.WriteString(builder.String())
+		if i+1 < numParts {
+			result.WriteRune('-')
+		}
+	}
+
+	return result.String()
 }
