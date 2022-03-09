@@ -3,6 +3,7 @@
 package leander
 
 import (
+	"math"
 	"strconv"
 	"strings"
 	"unicode"
@@ -116,13 +117,13 @@ func WholeStory(in string) string {
 type Stats struct {
 	ShortestWord      string
 	LongestWord       string
-	AverageWordLength string
+	AverageWordLength float64
 	AverageWords      []string
 }
 
 // StoryStats gives us some descriptive statistics of our input string following our string convention.
 //
-// expected difficulty: low
+// expected difficulty: med
 // actual time:
 func StoryStats(in string) Stats {
 
@@ -131,8 +132,44 @@ func StoryStats(in string) Stats {
 	}
 
 	var (
-		ret = Stats{}
+		ret   Stats    = Stats{}
+		split []string = strings.Split(in, "-")
+
+		runingTotalWordLen int
 	)
+
+	// we do two iterations
+	// 1 to find the true average
+	// 2 to find all the words that match the floor/ceil of average length
+
+	for i, s := range split {
+
+		isEven := (i % 2) == 0
+		if !isEven {
+
+			runingTotalWordLen = runingTotalWordLen + len(s)
+
+			// len is constant lookup
+			if len(s) > len(ret.LongestWord) {
+				ret.LongestWord = s
+			}
+
+			if ret.ShortestWord == "" || len(s) < len(ret.ShortestWord) {
+				ret.ShortestWord = s
+			}
+		}
+
+		ret.AverageWordLength = float64(runingTotalWordLen) / float64((i+1)/2)
+	}
+
+	roundedup := int(math.Ceil(ret.AverageWordLength))
+	roundedDown := int(math.Floor(ret.AverageWordLength))
+
+	for _, s := range split {
+		if len(s) == roundedup || len(s) == roundedDown {
+			ret.AverageWords = append(ret.AverageWords, s)
+		}
+	}
 
 	return ret
 }

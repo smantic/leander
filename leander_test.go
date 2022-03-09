@@ -96,7 +96,15 @@ func TestStoryStats(t *testing.T) {
 	}{
 		"empty":   {"", Stats{}},
 		"invalid": {"-123", Stats{}},
-		"ok":      {"10-abc-10-abc-10-abc", Stats{}},
+		"all same word": {
+			"10-abc-10-abc-10-abc",
+			Stats{
+				AverageWordLength: 3,
+				AverageWords:      []string{"abc", "abc", "abc"},
+				LongestWord:       "abc",
+				ShortestWord:      "abc",
+			},
+		},
 	}
 
 	for name, test := range cases {
