@@ -91,7 +91,7 @@ func Average(in string) float64 {
 // WholeStory takes a string following our custom conventions and outputs all of the text parts combined.
 //
 // expected difficulty: low
-// actual time:
+// actual time: 7 minutes
 func WholeStory(in string) string {
 
 	if !Valid(in) {
@@ -111,4 +111,28 @@ func WholeStory(in string) string {
 
 	ret := builder.String()
 	return ret[:len(ret)-1]
+}
+
+type Stats struct {
+	ShortestWord      string
+	LongestWord       string
+	AverageWordLength string
+	AverageWords      []string
+}
+
+// StoryStats gives us some descriptive statistics of our input string following our string convention.
+//
+// expected difficulty: low
+// actual time:
+func StoryStats(in string) Stats {
+
+	if !Valid(in) {
+		return Stats{}
+	}
+
+	var (
+		ret = Stats{}
+	)
+
+	return ret
 }

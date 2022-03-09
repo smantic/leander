@@ -3,7 +3,12 @@ package leander
 import (
 	"math"
 	"testing"
+
+	"github.com/go-test/deep"
 )
+
+//  I wrote the test functions before I wrote the functions
+//  They dont take very long to write as they are mostly copy paste.
 
 func TestValid(t *testing.T) {
 
@@ -81,5 +86,28 @@ func TestWholeStory(t *testing.T) {
 			}
 		})
 	}
+}
 
+func TestStoryStats(t *testing.T) {
+
+	cases := map[string]struct {
+		in       string
+		expected Stats
+	}{
+		"empty":   {"", Stats{}},
+		"invalid": {"-123", Stats{}},
+		"ok":      {"10-abc-10-abc-10-abc", Stats{}},
+	}
+
+	for name, test := range cases {
+		test := test
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+			got := StoryStats(test.in)
+
+			if diffs := deep.Equal(got, test.expected); len(diffs) > 0 {
+				t.Error(diffs)
+			}
+		})
+	}
 }
