@@ -179,6 +179,7 @@ func StoryStats(in string) Stats {
 // Generate will generate a random valid or invalid string
 //
 // expected difficulty: med
+// actual time: ~25 min
 func Generate(valid bool) string {
 
 	chars := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
