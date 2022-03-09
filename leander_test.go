@@ -59,7 +59,7 @@ func TestAverage(t *testing.T) {
 	}
 }
 
-func TestWholeStory() {
+func TestWholeStory(t *testing.T) {
 
 	cases := map[string]struct {
 		in       string

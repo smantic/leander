@@ -94,4 +94,21 @@ func Average(in string) float64 {
 // actual time:
 func WholeStory(in string) string {
 
+	if !Valid(in) {
+		return ""
+	}
+
+	split := strings.Split(in, "-")
+	builder := strings.Builder{}
+	for i, s := range split {
+
+		isEven := (i % 2) == 0
+		if !isEven {
+			builder.WriteString(s)
+			builder.WriteString(" ")
+		}
+	}
+
+	ret := builder.String()
+	return ret[:len(ret)-1]
 }
